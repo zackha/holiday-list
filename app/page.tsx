@@ -1,101 +1,133 @@
-import Image from "next/image";
+'use client';
+
+import { useState, useEffect } from 'react';
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  const [holidays, setHolidays] = useState([]);
+  const [filters, setFilters] = useState({
+    countryId: '',
+    stateId: '',
+    type: '',
+    year: '',
+    month: '',
+  });
+  const [page, setPage] = useState(1);
+  const [filterOptions, setFilterOptions] = useState({
+    countries: [],
+    states: [],
+    holidayTypes: [],
+  });
+  const [availableStates, setAvailableStates] = useState([]); // Seçilen ülkeye göre eyaletleri tutmak için
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+  // Filtre seçeneklerini yükleme
+  useEffect(() => {
+    const fetchFilterOptions = async () => {
+      const res = await fetch('/api/filters');
+      const data = await res.json();
+      setFilterOptions(data);
+    };
+
+    fetchFilterOptions();
+  }, []);
+
+  // Tatil verilerini filtrelere göre çekme
+  useEffect(() => {
+    const fetchHolidays = async () => {
+      const query = new URLSearchParams(filters as any);
+      query.append('page', page.toString());
+
+      const res = await fetch(`/api/holidays?${query}`);
+      const data = await res.json();
+      setHolidays(data);
+    };
+
+    fetchHolidays();
+  }, [filters, page]);
+
+  // Seçilen ülkeye göre eyalet listesini güncelleme
+  useEffect(() => {
+    if (filters.countryId) {
+      const statesForSelectedCountry = filterOptions.states.filter((state: any) => state.country_id === parseInt(filters.countryId));
+      setAvailableStates(statesForSelectedCountry);
+    } else {
+      setAvailableStates([]);
+      setFilters(prevFilters => ({ ...prevFilters, stateId: '' })); // Eyalet seçimini sıfırla
+    }
+  }, [filters.countryId, filterOptions.states]);
+
+  // Yıl ve ay için seçenekleri oluşturma
+  const years = Array.from({ length: 20 }, (_, i) => new Date().getFullYear() - i); // Son 20 yılı getir
+  const months = Array.from({ length: 12 }, (_, i) => i + 1); // 1'den 12'ye kadar aylar
+
+  return (
+    <div>
+      <h1>Tatil Listesi</h1>
+      <div>
+        <label>
+          Ülke:
+          <select value={filters.countryId} onChange={e => setFilters({ ...filters, countryId: e.target.value })}>
+            <option value="">Seçiniz</option>
+            {filterOptions.countries.map((country: any) => (
+              <option key={country.id} value={country.id}>
+                {country.name}
+              </option>
+            ))}
+          </select>
+        </label>
+        <label>
+          Eyalet:
+          <select value={filters.stateId} onChange={e => setFilters({ ...filters, stateId: e.target.value })} disabled={!filters.countryId}>
+            <option value="">Seçiniz</option>
+            {availableStates.map((state: any) => (
+              <option key={state.id} value={state.id}>
+                {state.name}
+              </option>
+            ))}
+          </select>
+        </label>
+        <label>
+          Tatil Tipi:
+          <select value={filters.type} onChange={e => setFilters({ ...filters, type: e.target.value })}>
+            <option value="">Seçiniz</option>
+            {filterOptions.holidayTypes.map((type: string) => (
+              <option key={type} value={type}>
+                {type}
+              </option>
+            ))}
+          </select>
+        </label>
+        <label>
+          Yıl:
+          <select value={filters.year} onChange={e => setFilters({ ...filters, year: e.target.value })}>
+            <option value="">Seçiniz</option>
+            {years.map(year => (
+              <option key={year} value={year}>
+                {year}
+              </option>
+            ))}
+          </select>
+        </label>
+        <label>
+          Ay:
+          <select value={filters.month} onChange={e => setFilters({ ...filters, month: e.target.value })}>
+            <option value="">Seçiniz</option>
+            {months.map(month => (
+              <option key={month} value={String(month).padStart(2, '0')}>
+                {month}
+              </option>
+            ))}
+          </select>
+        </label>
+        <button onClick={() => setPage(page + 1)}>Sonraki Sayfa</button>
+      </div>
+
+      <ul>
+        {holidays.map((holiday: any) => (
+          <li key={holiday.id}>
+            {holiday.name} - {holiday.date}
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }
