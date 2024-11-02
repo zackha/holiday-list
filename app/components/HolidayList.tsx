@@ -1,11 +1,13 @@
-// app/components/HolidayList.tsx
+'use client';
 
-import React from 'react';
+import * as React from 'react';
 
 interface Holiday {
   id: number;
   name: string;
   date: string;
+  country: string;
+  type: string;
 }
 
 interface HolidayListProps {
@@ -18,12 +20,15 @@ export default function HolidayList({ holidays }: HolidayListProps) {
   }
 
   return (
-    <ul className="list-disc list-inside">
+    <div className="">
       {holidays.map(holiday => (
-        <li key={holiday.id} className="py-2">
-          <span className="font-semibold">{holiday.name}</span> - <span className="text-gray-600">{holiday.date}</span>
-        </li>
+        <div key={holiday.id} className="p-4 border-b border-gray-200">
+          <span className="font-semibold">{holiday.name}</span>
+          <span className="text-gray-600">{holiday.date}</span>
+          <span className="text-gray-700">{holiday.country}</span>
+          <span className="text-gray-500 italic">{holiday.type}</span>
+        </div>
       ))}
-    </ul>
+    </div>
   );
 }

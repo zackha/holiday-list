@@ -71,11 +71,13 @@ export default function Home() {
   };
 
   return (
-    <div>
-      <h1>Tatil Listesi</h1>
-      <FilterPanel filters={filters} filterOptions={filterOptions} availableStates={availableStates} onFilterChange={handleFilterChange} />
-      <HolidayList holidays={holidays} />
-      <Pagination page={page} totalPages={totalPages} onPageChange={setPage} />
+    <div className="flex items-center justify-center min-h-screen">
+      <div className="container mx-auto max-w-md p-4 text-center">
+        <h1 className="text-2xl font-semibold mb-4">Tatil Listesi</h1>
+        <FilterPanel filters={filters} filterOptions={filterOptions} availableStates={availableStates} onFilterChange={handleFilterChange} />
+        <HolidayList holidays={holidays} />
+        <Pagination page={page} totalPages={totalPages} onPageChange={setPage} />
+      </div>
     </div>
   );
 }
