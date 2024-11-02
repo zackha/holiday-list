@@ -28,7 +28,7 @@ export default function FilterPanel({ filters, filterOptions, availableStates, o
   };
 
   return (
-    <div className="space-y-4">
+    <div className="flex flex-row justify-center gap-4">
       <div className="flex flex-col">
         <label className="mb-1">Ülke:</label>
         <select value={filters.countryId} onChange={e => handleChange('countryId', e.target.value)} className="p-2 border border-gray-300 rounded">

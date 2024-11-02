@@ -20,15 +20,24 @@ export default function HolidayList({ holidays }: HolidayListProps) {
   }
 
   return (
-    <div className="">
-      {holidays.map(holiday => (
-        <div key={holiday.id} className="p-4 border-b border-gray-200">
-          <span className="font-semibold">{holiday.name}</span>
-          <span className="text-gray-600">{holiday.date}</span>
-          <span className="text-gray-700">{holiday.country}</span>
-          <span className="text-gray-500 italic">{holiday.type}</span>
-        </div>
-      ))}
+    <div className="flex flex-col gap-4">
+      {holidays.map(holiday => {
+        const date = new Date(holiday.date);
+        const weekDay = date.toLocaleDateString('en-US', { month: 'short' });
+        const dayOfMonth = String(date.getDate()).padStart(2, '0');
+
+        return (
+          <div key={holiday.id} className="p-4 rounded-3xl bg-orange-100 gap-4 flex flex-row items-center">
+            <div className="text-white flex flex-col items-center px-5 py-3.5 rounded-xl bg-orange-500 gap-1 border-2 shadow-lg border-white">
+              <div className="leading-none text-sm">{weekDay}</div>
+              <div className="text-2xl leading-none font-bold">{dayOfMonth}</div>
+            </div>
+            <span className="font-semibold text-orange-600">{holiday.name}</span>
+            <span className="">{holiday.country}</span>
+            <span className="">{holiday.type}</span>
+          </div>
+        );
+      })}
     </div>
   );
 }

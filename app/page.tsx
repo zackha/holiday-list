@@ -71,9 +71,8 @@ export default function Home() {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen">
-      <div className="container mx-auto max-w-md p-4 text-center">
-        <h1 className="text-2xl font-semibold mb-4">Tatil Listesi</h1>
+    <div className="flex items-center py-32">
+      <div className="container mx-auto max-w-md gap-6 flex flex-col">
         <FilterPanel filters={filters} filterOptions={filterOptions} availableStates={availableStates} onFilterChange={handleFilterChange} />
         <HolidayList holidays={holidays} />
         <Pagination page={page} totalPages={totalPages} onPageChange={setPage} />
