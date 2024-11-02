@@ -13,13 +13,12 @@ export async function GET(request: Request) {
   const start = (page - 1) * limit;
   const end = start + limit - 1;
 
-  let query = supabase.from('holidays').select('*').range(start, end);
+  let query = supabase.from('holidays').select('*', { count: 'exact' }).range(start, end);
 
   if (countryId) query = query.eq('country_id', countryId);
   if (stateId) query = query.eq('state_id', stateId);
   if (type) query = query.eq('type', type);
 
-  // Yıl ve ay filtrelemesi
   if (year && month) {
     const startDate = `${year}-${month.padStart(2, '0')}-01`;
     const endDate = new Date(parseInt(year), parseInt(month), 0).toISOString().split('T')[0];
@@ -35,11 +34,12 @@ export async function GET(request: Request) {
     query = query.gte('date', startDate).lte('date', endDate);
   }
 
-  const { data, error } = await query;
+  const { data, error, count } = await query;
 
   if (error) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 
-  return NextResponse.json(data);
+  const totalPages = Math.ceil(count! / limit);
+  return NextResponse.json({ holidays: data, totalPages });
 }
