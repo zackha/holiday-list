@@ -12,17 +12,15 @@ export async function GET(request: Request) {
   const limit = 10;
   const start = (page - 1) * limit;
 
-  // Ana sorgu (pagination ve toplam sayfa hesaplama için)
   let query = supabase
     .from('holidays')
-    .select('id, name, date, country_id, state_id, type, countries (name)', { count: 'exact' })
+    .select('id, name, date, country_id, state_id, type, color_id, countries (name)', { count: 'exact' })
     .range(start, start + limit - 1);
 
   if (countryId) query = query.eq('country_id', countryId);
   if (stateId) query = query.eq('state_id', stateId);
   if (type) query = query.eq('type', type);
 
-  // Yıl ve ay filtrelemesi
   if (year && month) {
     const startDate = `${year}-${month.padStart(2, '0')}-01`;
     const endDate = new Date(parseInt(year), parseInt(month), 0).toISOString().split('T')[0];
@@ -44,17 +42,16 @@ export async function GET(request: Request) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 
-  // Toplam sayfa sayısını hesapla
   const totalPages = Math.ceil(count! / limit);
 
-  // Ülke ismini `country` alanına ekle
   const holidays = data.map((holiday: any) => ({
     id: holiday.id,
     name: holiday.name,
     date: holiday.date,
-    country: holiday.countries?.name, // Ülke adı burada
+    country: holiday.countries?.name,
     state_id: holiday.state_id,
     type: holiday.type,
+    color_id: holiday.color_id,
   }));
 
   return NextResponse.json({ holidays, totalPages });
