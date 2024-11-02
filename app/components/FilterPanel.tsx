@@ -23,11 +23,15 @@ export default function FilterPanel({ filters, filterOptions, availableStates, o
   const years = Array.from({ length: 20 }, (_, i) => new Date().getFullYear() - i);
   const months = Array.from({ length: 12 }, (_, i) => i + 1);
 
+  const handleChange = (key: string, value: string) => {
+    onFilterChange({ ...filters, [key]: value });
+  };
+
   return (
-    <div>
-      <label>
-        Ülke:
-        <select value={filters.countryId} onChange={e => onFilterChange({ ...filters, countryId: e.target.value })}>
+    <div className="space-y-4">
+      <div className="flex flex-col">
+        <label className="mb-1">Ülke:</label>
+        <select value={filters.countryId} onChange={e => handleChange('countryId', e.target.value)} className="p-2 border border-gray-300 rounded">
           <option value="">Seçiniz</option>
           {filterOptions.countries.map(country => (
             <option key={country.id} value={country.id}>
@@ -35,10 +39,14 @@ export default function FilterPanel({ filters, filterOptions, availableStates, o
             </option>
           ))}
         </select>
-      </label>
-      <label>
-        Eyalet:
-        <select value={filters.stateId} onChange={e => onFilterChange({ ...filters, stateId: e.target.value })} disabled={!filters.countryId}>
+      </div>
+      <div className="flex flex-col">
+        <label className="mb-1">Eyalet:</label>
+        <select
+          value={filters.stateId}
+          onChange={e => handleChange('stateId', e.target.value)}
+          disabled={!filters.countryId}
+          className="p-2 border border-gray-300 rounded disabled:opacity-50">
           <option value="">Seçiniz</option>
           {availableStates.map(state => (
             <option key={state.id} value={state.id}>
@@ -46,10 +54,10 @@ export default function FilterPanel({ filters, filterOptions, availableStates, o
             </option>
           ))}
         </select>
-      </label>
-      <label>
-        Tatil Tipi:
-        <select value={filters.type} onChange={e => onFilterChange({ ...filters, type: e.target.value })}>
+      </div>
+      <div className="flex flex-col">
+        <label className="mb-1">Tatil Tipi:</label>
+        <select value={filters.type} onChange={e => handleChange('type', e.target.value)} className="p-2 border border-gray-300 rounded">
           <option value="">Seçiniz</option>
           {filterOptions.holidayTypes.map(type => (
             <option key={type} value={type}>
@@ -57,10 +65,10 @@ export default function FilterPanel({ filters, filterOptions, availableStates, o
             </option>
           ))}
         </select>
-      </label>
-      <label>
-        Yıl:
-        <select value={filters.year} onChange={e => onFilterChange({ ...filters, year: e.target.value })}>
+      </div>
+      <div className="flex flex-col">
+        <label className="mb-1">Yıl:</label>
+        <select value={filters.year} onChange={e => handleChange('year', e.target.value)} className="p-2 border border-gray-300 rounded">
           <option value="">Seçiniz</option>
           {years.map(year => (
             <option key={year} value={year}>
@@ -68,10 +76,10 @@ export default function FilterPanel({ filters, filterOptions, availableStates, o
             </option>
           ))}
         </select>
-      </label>
-      <label>
-        Ay:
-        <select value={filters.month} onChange={e => onFilterChange({ ...filters, month: e.target.value })}>
+      </div>
+      <div className="flex flex-col">
+        <label className="mb-1">Ay:</label>
+        <select value={filters.month} onChange={e => handleChange('month', e.target.value)} className="p-2 border border-gray-300 rounded">
           <option value="">Seçiniz</option>
           {months.map(month => (
             <option key={month} value={String(month).padStart(2, '0')}>
@@ -79,7 +87,7 @@ export default function FilterPanel({ filters, filterOptions, availableStates, o
             </option>
           ))}
         </select>
-      </label>
+      </div>
     </div>
   );
 }

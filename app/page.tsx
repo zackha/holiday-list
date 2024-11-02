@@ -2,7 +2,7 @@
 
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import FilterPanel from './components/FilterPanel';
 import HolidayList from './components/HolidayList';
 import Pagination from './components/Pagination';
@@ -25,33 +25,39 @@ export default function Home() {
   });
   const [availableStates, setAvailableStates] = useState([]);
 
-  useEffect(() => {
-    const fetchFilterOptions = async () => {
+  const fetchFilterOptions = useCallback(async () => {
+    try {
       const res = await fetch('/api/filters');
       const data = await res.json();
       setFilterOptions(data);
-    };
-
-    fetchFilterOptions();
+    } catch (error) {
+      console.error('Error fetching filter options:', error);
+    }
   }, []);
 
-  useEffect(() => {
-    const fetchHolidays = async () => {
-      const query = new URLSearchParams(filters as any);
-      query.append('page', page.toString());
-
+  const fetchHolidays = useCallback(async () => {
+    try {
+      const query = new URLSearchParams({ ...filters, page: page.toString() });
       const res = await fetch(`/api/holidays?${query}`);
       const data = await res.json();
       setHolidays(data.holidays);
       setTotalPages(data.totalPages);
-    };
-
-    fetchHolidays();
+    } catch (error) {
+      console.error('Error fetching holidays:', error);
+    }
   }, [filters, page]);
 
   useEffect(() => {
+    fetchFilterOptions();
+  }, [fetchFilterOptions]);
+
+  useEffect(() => {
+    fetchHolidays();
+  }, [fetchHolidays]);
+
+  useEffect(() => {
     if (filters.countryId) {
-      const statesForSelectedCountry = filterOptions.states.filter(state => state.country_id === parseInt(filters.countryId));
+      const statesForSelectedCountry = filterOptions.states.filter((state: { country_id: number }) => state.country_id === parseInt(filters.countryId));
       setAvailableStates(statesForSelectedCountry);
     } else {
       setAvailableStates([]);
@@ -61,7 +67,7 @@ export default function Home() {
 
   const handleFilterChange = (newFilters: any) => {
     setFilters(newFilters);
-    setPage(1); // Filtre değiştiğinde sayfayı sıfırla
+    setPage(1);
   };
 
   return (
