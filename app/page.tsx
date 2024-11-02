@@ -1,7 +1,6 @@
-// app/page.tsx
-
 'use client';
 
+import * as React from 'react';
 import { useState, useEffect, useCallback } from 'react';
 import FilterPanel from './components/FilterPanel';
 import HolidayList from './components/HolidayList';
