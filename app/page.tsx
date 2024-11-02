@@ -1,5 +1,3 @@
-// app/page.tsx
-
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
@@ -72,7 +70,7 @@ export default function Home() {
 
   return (
     <div className="flex items-center py-32">
-      <div className="container mx-auto max-w-md gap-6 flex flex-col">
+      <div className="container mx-auto max-w-lg gap-6 flex flex-col">
         <FilterPanel filters={filters} filterOptions={filterOptions} availableStates={availableStates} onFilterChange={handleFilterChange} />
         <HolidayList holidays={holidays} />
         <Pagination page={page} totalPages={totalPages} onPageChange={setPage} />

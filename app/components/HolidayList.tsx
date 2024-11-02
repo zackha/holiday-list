@@ -1,7 +1,7 @@
 'use client';
 
-import * as React from 'react';
-import { MapPinIcon, CalendarIcon } from '@heroicons/react/24/solid';
+import React from 'react';
+import { MapPin, Info } from 'react-feather';
 
 interface Holiday {
   id: number;
@@ -29,24 +29,25 @@ export default function HolidayList({ holidays }: HolidayListProps) {
         const weekDay = date.toLocaleDateString('en-US', { weekday: 'long' });
         const dayOfMonth = String(date.getDate()).padStart(2, '0');
         return (
-          <div key={holiday.id} className="flex gap-2">
-            <div className="bg-neutral-100 w-1/4 p-4 rounded-lg">
+          <div key={holiday.id} className="flex flex-col xxs:flex-row gap-2 xxs:px-2">
+            <div className="bg-neutral-100 w-full xxs:w-2/6 p-5 xxs:rounded-lg">
               <div className="text-lg">
                 {month} {dayOfMonth}
               </div>
-              <div className="text-sm text-neutral-600">{weekDay}</div>
+              <div className="text-sm text-neutral-400">{weekDay}</div>
             </div>
-            <div className="flex w-3/4 p-4 rounded-lg border border-neutral-200 shadow-sm">
-              <div className="w-1 rounded-full h-full" style={{ backgroundColor: holiday.color_id }}></div>
-              <div className="flex flex-col px-3">
-                <span className=" text-lg text-neutral-800">{holiday.name}</span>
-                <div className="flex gap-4 text-neutral-500 text-sm">
-                  <div className="flex items-center justify-center gap-0.5">
+            <div className="flex w-full xxs:w-4/6 p-5 xxs:rounded-lg border border-neutral-200 shadow-sm">
+              <div className="flex flex-col justify-center w-1.5 self-stretch rounded-full" style={{ backgroundColor: holiday.color_id || '#000' }}></div>
+              <div className="flex flex-col px-4 flex-grow">
+                <span className="text-lg text-neutral-800">{holiday.name}</span>
+                <div className="flex flex-col items-start xxs:flex-row xxs:gap-4 text-neutral-500 text-sm">
+                  <div className="flex items-center justify-center gap-1">
+                    <Info size={12} />
                     <span className="capitalize">{holiday.type}</span>
                   </div>
-                  <div className="flex items-center justify-center gap-0.5">
-                    <MapPinIcon className="size-3.5" />
-                    <span className="">{holiday.country}</span>
+                  <div className="flex items-center justify-center gap-1">
+                    <MapPin size={12} />
+                    <span>{holiday.country}</span>
                   </div>
                 </div>
               </div>
