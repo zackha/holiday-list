@@ -1,6 +1,7 @@
 'use client';
 
 import * as React from 'react';
+import { Calendar, List } from 'react-feather';
 
 interface FilterPanelProps {
   filters: {
@@ -28,11 +29,21 @@ export default function FilterPanel({ filters, filterOptions, availableStates, o
   };
 
   return (
-    <div className="flex flex-row justify-center gap-4">
+    <div className="flex justify-center gap-4">
+      <div className="flex shadow-sm rounded-lg border border-neutral-200 text-neutral-700">
+        <button className="px-3.5 flex items-center gap-2.5 border-r border-neutral-200 bg-indigo-50 rounded-l-md">
+          <List size={16} className="text-indigo-600" />
+          <span className="mt-0.5 text-black">List</span>
+        </button>
+        {/* To do */}
+        <button className="px-3.5 flex items-center gap-2.5">
+          <Calendar size={16} />
+          <span className="mt-0.5">Calendar</span>
+        </button>
+      </div>
       <div className="flex flex-col">
-        <label className="mb-1">Ülke:</label>
         <select value={filters.countryId} onChange={e => handleChange('countryId', e.target.value)} className="p-2 border border-gray-300 rounded">
-          <option value="">Seçiniz</option>
+          <option value="">Tüm Ülkeler</option>
           {filterOptions.countries.map(country => (
             <option key={country.id} value={country.id}>
               {country.name}
@@ -41,7 +52,6 @@ export default function FilterPanel({ filters, filterOptions, availableStates, o
         </select>
       </div>
       <div className="flex flex-col">
-        <label className="mb-1">Eyalet:</label>
         <select
           value={filters.stateId}
           onChange={e => handleChange('stateId', e.target.value)}
@@ -56,7 +66,6 @@ export default function FilterPanel({ filters, filterOptions, availableStates, o
         </select>
       </div>
       <div className="flex flex-col">
-        <label className="mb-1">Tatil Tipi:</label>
         <select value={filters.type} onChange={e => handleChange('type', e.target.value)} className="p-2 border border-gray-300 rounded">
           <option value="">Seçiniz</option>
           {filterOptions.holidayTypes.map(type => (
@@ -67,7 +76,6 @@ export default function FilterPanel({ filters, filterOptions, availableStates, o
         </select>
       </div>
       <div className="flex flex-col">
-        <label className="mb-1">Yıl:</label>
         <select value={filters.year} onChange={e => handleChange('year', e.target.value)} className="p-2 border border-gray-300 rounded">
           <option value="">Seçiniz</option>
           {years.map(year => (
@@ -78,7 +86,6 @@ export default function FilterPanel({ filters, filterOptions, availableStates, o
         </select>
       </div>
       <div className="flex flex-col">
-        <label className="mb-1">Ay:</label>
         <select value={filters.month} onChange={e => handleChange('month', e.target.value)} className="p-2 border border-gray-300 rounded">
           <option value="">Seçiniz</option>
           {months.map(month => (
