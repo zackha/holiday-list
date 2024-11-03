@@ -29,6 +29,7 @@ export default function Home() {
       const res = await fetch('/api/filters');
       const data = await res.json();
       setFilterOptions(data);
+      console.log('Filter options:', data);
     } catch (error) {
       console.error('Error fetching filter options:', error);
     }
@@ -42,6 +43,7 @@ export default function Home() {
       const data = await res.json();
       setHolidays(data.holidays);
       setTotalPages(data.totalPages);
+      console.log('Holidays:', data);
     } catch (error) {
       console.error('Error fetching holidays:', error);
     } finally {

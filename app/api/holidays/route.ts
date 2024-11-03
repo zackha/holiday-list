@@ -14,7 +14,7 @@ export async function GET(request: Request) {
 
   let query = supabase
     .from('holidays')
-    .select('id, name, date, country_id, state_id, type, color_id, countries (name)', { count: 'exact' })
+    .select('id, name, date, country_id, state_id, type, color, countries (name)', { count: 'exact' })
     .range(start, start + limit - 1);
 
   if (countryId) query = query.eq('country_id', countryId);
@@ -51,7 +51,7 @@ export async function GET(request: Request) {
     country: holiday.countries?.name,
     state_id: holiday.state_id,
     type: holiday.type,
-    color_id: holiday.color_id,
+    color: holiday.color,
   }));
 
   return NextResponse.json({ holidays, totalPages });

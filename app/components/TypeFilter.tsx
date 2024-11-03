@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import { Menu, MenuButton, MenuItem, MenuItems, Transition } from '@headlessui/react';
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
-import { Check } from 'react-feather';
+import { Check, X } from 'react-feather';
 
 interface TypeFilterProps {
   filters: {
@@ -22,6 +22,13 @@ export default function TypeFilter({ filters, filterOptions, handleChange }: Typ
         {selectedType}
         <ChevronDownIcon aria-hidden="true" className="-mr-1 h-6 w-5 text-neutral-700" />
       </MenuButton>
+      {filters.type && (
+        <button
+          onClick={() => handleChange('type', '')}
+          className="-top-1.5 -right-1.5 absolute flex items-center justify-center text-white bg-red-500 rounded-full hover:bg-red-600 transition-all">
+          <X className="size-3.5 m-0.5" />
+        </button>
+      )}
       <Transition
         as={React.Fragment}
         enter="transition ease-out duration-100"

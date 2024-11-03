@@ -17,7 +17,7 @@ interface FilterPanelProps {
     month: string;
   };
   filterOptions: {
-    countries: { id: number; name: string }[];
+    countries: { id: number; name: string; holiday_count: number }[];
     states: { id: number; name: string; country_id: number }[];
     holidayTypes: string[];
   };

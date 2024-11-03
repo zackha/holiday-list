@@ -10,7 +10,7 @@ interface Holiday {
   date: string;
   country: string;
   type: string;
-  color_id: string;
+  color: string;
 }
 
 interface HolidayListProps {
@@ -33,7 +33,7 @@ export default function HolidayList({ holidays }: HolidayListProps) {
 
   return (
     <div className="flex flex-col gap-4">
-      {holidays.map(({ id, name, date, country, type, color_id }) => {
+      {holidays.map(({ id, name, date, country, type, color }) => {
         const { month, weekDay, dayOfMonth } = formatDate(date);
 
         return (
@@ -53,7 +53,7 @@ export default function HolidayList({ holidays }: HolidayListProps) {
                 <div className="text-sm text-neutral-400">{weekDay}</div>
               </div>
               <div className="flex w-full xxs:w-4/6 p-5 xxs:rounded-lg border border-neutral-200 shadow-sm">
-                <div className="flex flex-col justify-center w-1.5 self-stretch rounded-full" style={{ backgroundColor: color_id || '#000' }}></div>
+                <div className="flex flex-col justify-center w-1.5 self-stretch rounded-full" style={{ backgroundColor: color || '#000' }}></div>
                 <div className="flex flex-col px-4 flex-grow">
                   <span className="text-lg text-neutral-800">{name}</span>
                   <div className="flex flex-col items-start xxs:flex-row xxs:gap-4 text-neutral-500 text-sm">
