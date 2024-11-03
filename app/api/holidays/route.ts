@@ -9,7 +9,7 @@ export async function GET(request: Request) {
   const year = searchParams.get('year');
   const month = searchParams.get('month');
   const page = parseInt(searchParams.get('page') || '1');
-  const limit = 10;
+  const limit = 4;
   const start = (page - 1) * limit;
 
   let query = supabase

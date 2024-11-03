@@ -30,7 +30,7 @@ export default function MonthFilter({ filters, handleChange }: MonthFilterProps)
 
   return (
     <Menu as="div" className="relative inline-block text-left">
-      <MenuButton className="inline-flex w-full justify-center gap-x-1.5 rounded-lg bg-white px-3.5 h-full items-center text-neutral-700 shadow-sm ring-1 ring-inset ring-neutral-200 hover:bg-indigo-50 hover:text-black whitespace-nowrap transition-all">
+      <MenuButton className="inline-flex justify-center gap-x-1.5 rounded-lg bg-white px-3.5 h-9 items-center text-neutral-700 shadow-sm ring-1 ring-inset ring-neutral-200 hover:bg-indigo-50 hover:text-black whitespace-nowrap transition-all">
         {selectedMonth}
         <ChevronDownIcon aria-hidden="true" className="-mr-1 h-6 w-5 text-neutral-700" />
       </MenuButton>

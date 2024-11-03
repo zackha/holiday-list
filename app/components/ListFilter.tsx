@@ -10,19 +10,17 @@ export default function ListFilter() {
   };
 
   return (
-    <div>
-      <div className="flex shadow-sm rounded-lg border border-neutral-200 text-neutral-700">
-        <button className="px-3.5 py-1 flex items-center gap-2.5 border-r border-neutral-200 bg-indigo-50 rounded-l-md">
+    <div className="flex">
+      <div className="flex shadow-sm h-9 rounded-lg border border-neutral-200 text-neutral-700">
+        <button className="px-3.5 flex items-center gap-2.5 border-r border-neutral-200 bg-indigo-50 rounded-l-md">
           <List size={16} className="text-indigo-600" />
           <span className="mt-0.5 text-black">List</span>
         </button>
-        <button onClick={handleCalendarClick} className="px-3.5 py-1 flex items-center gap-2.5 hover:bg-indigo-50 hover:text-black transition-all group rounded-r-md">
+        <button onClick={handleCalendarClick} className="px-3.5 flex items-center gap-2.5 hover:bg-indigo-50 hover:text-black transition-all group rounded-r-md">
           <Calendar size={16} className="group-hover:text-indigo-600 transition-all" />
           <span className="mt-0.5">Calendar</span>
         </button>
       </div>
-
-      {/* Modal */}
       <Dialog open={isModalOpen} as="div" className="relative z-10 focus:outline-none" onClose={() => setIsModalOpen(false)}>
         <DialogBackdrop
           transition

@@ -34,7 +34,7 @@ export default function FilterPanel({ filters, filterOptions, availableStates, o
   };
 
   return (
-    <div className="flex justify-center gap-4">
+    <div className="flex flex-wrap gap-3 px-2">
       <ListFilter />
       <CountryFilter filters={filters} filterOptions={filterOptions} handleChange={handleChange} />
       {/*Todo //<StateFilter filters={filters} availableStates={availableStates} handleChange={handleChange} />*/}

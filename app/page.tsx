@@ -100,8 +100,20 @@ export default function Home() {
   };
 
   return (
-    <div className="flex items-center py-32">
-      <div className="container mx-auto max-w-lg gap-6 flex flex-col">
+    <div className="flex flex-col items-center py-32">
+      <div className="container mx-auto max-w-4xl gap-6 flex flex-col">
+        <div className="w-full px-2 gap-2 flex flex-col border-b pb-5">
+          <div className="text-3xl">
+            Holiday Listing and Filtering Application by{' '}
+            <a href="https://www.percon.io/" target="_blank" className="underline">
+              PERCON A.S.
+            </a>
+          </div>
+          <div className=" text-neutral-500">
+            This project is a web application that lists holidays in Germany, the Netherlands, France, and Belgium, allowing users to filter data by country, state, holiday type,
+            year, and month. The application is built with Supabase, Next.js 15, and TypeScript
+          </div>
+        </div>
         <FilterPanel
           filters={filters}
           filterOptions={filterOptions}
