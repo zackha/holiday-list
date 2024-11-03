@@ -4,9 +4,20 @@ import { useState, useEffect, useCallback } from 'react';
 import FilterPanel from './components/FilterPanel';
 import HolidayList from './components/HolidayList';
 import Pagination from './components/Pagination';
+import * as XLSX from 'xlsx';
+import jsPDF from 'jspdf';
 
 export default function Home() {
-  const [holidays, setHolidays] = useState([]);
+  interface Holiday {
+    id: number;
+    name: string;
+    date: string;
+    type: string;
+    country: string;
+    color: string;
+  }
+
+  const [holidays, setHolidays] = useState<Holiday[]>([]);
   const [filters, setFilters] = useState({
     countryId: '',
     stateId: '',
@@ -29,7 +40,6 @@ export default function Home() {
       const res = await fetch('/api/filters');
       const data = await res.json();
       setFilterOptions(data);
-      console.log('Filter options:', data);
     } catch (error) {
       console.error('Error fetching filter options:', error);
     }
@@ -43,7 +53,6 @@ export default function Home() {
       const data = await res.json();
       setHolidays(data.holidays);
       setTotalPages(data.totalPages);
-      console.log('Holidays:', data);
     } catch (error) {
       console.error('Error fetching holidays:', error);
     } finally {
@@ -74,10 +83,33 @@ export default function Home() {
     setPage(1);
   };
 
+  const downloadPDF = () => {
+    const doc = new jsPDF();
+    doc.text('Holidays - PERCON', 10, 10);
+    holidays.forEach((holiday, index) => {
+      doc.text(`${index + 1}. ${holiday.name} - ${holiday.date} (${holiday.type})`, 10, 20 + index * 10);
+    });
+    doc.save('holidays.pdf');
+  };
+
+  const downloadExcel = () => {
+    const worksheet = XLSX.utils.json_to_sheet(holidays);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'Holidays');
+    XLSX.writeFile(workbook, 'holidays.xlsx');
+  };
+
   return (
     <div className="flex items-center py-32">
       <div className="container mx-auto max-w-lg gap-6 flex flex-col">
-        <FilterPanel filters={filters} filterOptions={filterOptions} availableStates={availableStates} onFilterChange={handleFilterChange} />
+        <FilterPanel
+          filters={filters}
+          filterOptions={filterOptions}
+          availableStates={availableStates}
+          onFilterChange={handleFilterChange}
+          onDownloadPDF={downloadPDF}
+          onDownloadExcel={downloadExcel}
+        />
         <HolidayList holidays={holidays} />
         <Pagination page={page} totalPages={totalPages} onPageChange={setPage} />
       </div>

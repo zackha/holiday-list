@@ -13,12 +13,12 @@ export default function Pagination({ page, totalPages, onPageChange }: Paginatio
     <div className="flex items-center justify-center gap-4">
       {page > 1 && (
         <button onClick={() => onPageChange(page - 1)} aria-label="Önceki Sayfa" className="px-4 py-2 border border-gray-300 bg-white">
-          Önceki
+          Previous
         </button>
       )}
       {page < totalPages && (
         <button onClick={() => onPageChange(page + 1)} aria-label="Sonraki Sayfa" className="px-4 py-2 border border-gray-300 bg-white">
-          Sonraki
+          Next
         </button>
       )}
     </div>

@@ -7,6 +7,7 @@ import TypeFilter from './TypeFilter';
 import YearFilter from './YearFilter';
 import MonthFilter from './MonthFilter';
 import ListFilter from './ListFilter';
+import DownloadButtons from './DownloadButtons';
 
 interface FilterPanelProps {
   filters: {
@@ -23,9 +24,11 @@ interface FilterPanelProps {
   };
   availableStates: { id: number; name: string }[];
   onFilterChange: (newFilters: any) => void;
+  onDownloadPDF: () => void;
+  onDownloadExcel: () => void;
 }
 
-export default function FilterPanel({ filters, filterOptions, availableStates, onFilterChange }: FilterPanelProps) {
+export default function FilterPanel({ filters, filterOptions, availableStates, onFilterChange, onDownloadPDF, onDownloadExcel }: FilterPanelProps) {
   const handleChange = (key: string, value: string) => {
     onFilterChange({ ...filters, [key]: value });
   };
@@ -38,6 +41,7 @@ export default function FilterPanel({ filters, filterOptions, availableStates, o
       <TypeFilter filters={filters} filterOptions={filterOptions} handleChange={handleChange} />
       <YearFilter filters={filters} handleChange={handleChange} />
       <MonthFilter filters={filters} handleChange={handleChange} />
+      <DownloadButtons onDownloadPDF={onDownloadPDF} onDownloadExcel={onDownloadExcel} />
     </div>
   );
 }

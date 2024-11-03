@@ -37,7 +37,7 @@ export default function TypeFilter({ filters, filterOptions, handleChange }: Typ
         leave="transition ease-in duration-75"
         leaveFrom="transform opacity-100 scale-100"
         leaveTo="transform opacity-0 scale-95">
-        <MenuItems className="absolute left-0 z-10 mt-2 w-56 origin-top-left rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+        <MenuItems className="absolute left-0 z-10 mt-2 w-40 origin-top-left rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
           <div className="p-2">
             <MenuItem
               as="button"
