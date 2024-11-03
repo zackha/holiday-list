@@ -22,6 +22,7 @@ export default function Home() {
     holidayTypes: [],
   });
   const [availableStates, setAvailableStates] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const fetchFilterOptions = useCallback(async () => {
     try {
@@ -34,6 +35,7 @@ export default function Home() {
   }, []);
 
   const fetchHolidays = useCallback(async () => {
+    setIsLoading(true);
     try {
       const query = new URLSearchParams({ ...filters, page: page.toString() });
       const res = await fetch(`/api/holidays?${query}`);
@@ -42,6 +44,8 @@ export default function Home() {
       setTotalPages(data.totalPages);
     } catch (error) {
       console.error('Error fetching holidays:', error);
+    } finally {
+      setIsLoading(false);
     }
   }, [filters, page]);
 

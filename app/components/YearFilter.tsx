@@ -1,4 +1,7 @@
-import React from 'react';
+import React, { useMemo } from 'react';
+import { Menu, MenuButton, MenuItem, MenuItems, Transition } from '@headlessui/react';
+import { ChevronDownIcon } from '@heroicons/react/20/solid';
+import { Check } from 'react-feather';
 
 interface YearFilterProps {
   filters: {
@@ -8,18 +11,45 @@ interface YearFilterProps {
 }
 
 export default function YearFilter({ filters, handleChange }: YearFilterProps) {
-  const years = Array.from({ length: 20 }, (_, i) => new Date().getFullYear() - i);
+  const years = useMemo(() => Array.from({ length: 6 }, (_, i) => new Date().getFullYear() + i), []);
+  const selectedYear = filters.year || 'All Years';
 
   return (
-    <div className="flex flex-col">
-      <select value={filters.year} onChange={e => handleChange('year', e.target.value)} className="p-2 border border-gray-300 rounded">
-        <option value="">Seçiniz</option>
-        {years.map(year => (
-          <option key={year} value={year}>
-            {year}
-          </option>
-        ))}
-      </select>
-    </div>
+    <Menu as="div" className="relative inline-block text-left">
+      <MenuButton className="inline-flex w-full justify-center gap-x-1.5 rounded-lg bg-white px-3.5 h-full items-center text-neutral-700 shadow-sm ring-1 ring-inset ring-neutral-200 hover:bg-indigo-50 hover:text-black whitespace-nowrap transition-all">
+        {selectedYear}
+        <ChevronDownIcon aria-hidden="true" className="-mr-1 h-6 w-5 text-neutral-700" />
+      </MenuButton>
+      <Transition
+        as={React.Fragment}
+        enter="transition ease-out duration-100"
+        enterFrom="transform opacity-0 scale-95"
+        enterTo="transform opacity-100 scale-100"
+        leave="transition ease-in duration-75"
+        leaveFrom="transform opacity-100 scale-100"
+        leaveTo="transform opacity-0 scale-95">
+        <MenuItems className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+          <div className="p-2">
+            <MenuItem
+              as="button"
+              onClick={() => handleChange('year', '')}
+              className="flex items-center gap-2 rounded transition-all w-full px-3 py-2 text-left text-sm text-gray-700 hover:bg-indigo-50 hover:text-black">
+              <div className="h-4 w-4">{filters.year === '' && <Check className="h-4 w-4 text-indigo-600" />}</div>
+              All Years
+            </MenuItem>
+            {years.map(year => (
+              <MenuItem
+                key={year}
+                as="button"
+                onClick={() => handleChange('year', year.toString())}
+                className="flex items-center gap-2 rounded transition-all w-full px-3 py-2 text-left text-sm text-gray-700 hover:bg-indigo-50 hover:text-black">
+                <div className="h-4 w-4">{filters.year === year.toString() && <Check className="h-4 w-4 text-indigo-600" />}</div>
+                {year}
+              </MenuItem>
+            ))}
+          </div>
+        </MenuItems>
+      </Transition>
+    </Menu>
   );
 }
