@@ -1,4 +1,7 @@
-# Holiday Listing and Filtering Application (PERCON A.S.)
+![holiday-list](https://github.com/user-attachments/assets/f230e422-fb7d-4355-9fcc-8e70f12743cc)
+
+# Holiday
+ Listing and Filtering Application (PERCON A.S.)
 
 This project is a web application that lists holidays in Germany, the Netherlands, France, and Belgium, allowing users to filter data by country, state, holiday type, year, and month. The application is built with Supabase, Next.js 15, and TypeScript (.tsx).
 
