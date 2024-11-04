@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import FilterPanel from './components/FilterPanel';
 import HolidayList from './components/HolidayList';
 import Pagination from './components/Pagination';
@@ -18,15 +19,19 @@ export default function Home() {
     color: string;
   }
 
-  const [holidays, setHolidays] = useState<Holiday[]>([]);
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
   const [filters, setFilters] = useState({
-    countryId: '',
-    stateId: '',
-    type: '',
-    year: '',
-    month: '',
+    countryId: searchParams.get('countryId') || '',
+    stateId: searchParams.get('stateId') || '',
+    type: searchParams.get('type') || '',
+    year: searchParams.get('year') || '',
+    month: searchParams.get('month') || '',
   });
-  const [page, setPage] = useState(1);
+
+  const [page, setPage] = useState(Number(searchParams.get('page')) || 1);
+  const [holidays, setHolidays] = useState<Holiday[]>([]);
   const [totalPages, setTotalPages] = useState(1);
   const [filterOptions, setFilterOptions] = useState({
     countries: [],
@@ -82,6 +87,14 @@ export default function Home() {
   const handleFilterChange = (newFilters: any) => {
     setFilters(newFilters);
     setPage(1);
+
+    const queryParams = new URLSearchParams();
+    Object.entries(newFilters).forEach(([key, value]) => {
+      if (value) queryParams.set(key, value.toString());
+    });
+    queryParams.set('page', '1');
+
+    router.push(`/?${queryParams.toString()}`);
   };
 
   const downloadPDF = () => {
@@ -102,7 +115,7 @@ export default function Home() {
 
   return (
     <div className="flex flex-col items-center py-32">
-      <div className="container mx-auto max-w-4xl gap-6 flex flex-col">
+      <div className="container mx-auto max-w-[57rem] gap-6 flex flex-col">
         <div className="w-full px-2 gap-2 flex flex-col border-b pb-5">
           <div className="text-3xl">
             Holiday Listing and Filtering Application by{' '}
@@ -124,7 +137,21 @@ export default function Home() {
           onDownloadExcel={downloadExcel}
         />
         <HolidayList holidays={holidays} isLoading={isLoading} />
-        <Pagination page={page} totalPages={totalPages} onPageChange={setPage} />
+        <Pagination
+          page={page}
+          totalPages={totalPages}
+          onPageChange={newPage => {
+            setPage(newPage);
+
+            const queryParams = new URLSearchParams();
+            Object.entries(filters).forEach(([key, value]) => {
+              if (value) queryParams.set(key, value.toString());
+            });
+            queryParams.set('page', newPage.toString());
+
+            router.push(`/?${queryParams.toString()}`);
+          }}
+        />
         <div className="items-center flex justify-center">
           <a href="https://github.com/zackha/holiday-list" className="flex items-center justify-center">
             <GithubButton className="size-8" />
