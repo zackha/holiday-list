@@ -6,6 +6,7 @@ import HolidayList from './components/HolidayList';
 import Pagination from './components/Pagination';
 import * as XLSX from 'xlsx';
 import jsPDF from 'jspdf';
+import GithubButton from './components/GithubButton';
 
 export default function Home() {
   interface Holiday {
@@ -122,8 +123,13 @@ export default function Home() {
           onDownloadPDF={downloadPDF}
           onDownloadExcel={downloadExcel}
         />
-        <HolidayList holidays={holidays} />
+        <HolidayList holidays={holidays} isLoading={isLoading} />
         <Pagination page={page} totalPages={totalPages} onPageChange={setPage} />
+        <div className="items-center flex justify-center">
+          <a href="https://github.com/zackha/holiday-list" className="flex items-center justify-center">
+            <GithubButton className="size-8" />
+          </a>
+        </div>
       </div>
     </div>
   );

@@ -15,6 +15,7 @@ interface Holiday {
 
 interface HolidayListProps {
   holidays: Holiday[];
+  isLoading: boolean;
 }
 
 const formatDate = (dateString: string) => {
@@ -26,9 +27,34 @@ const formatDate = (dateString: string) => {
   };
 };
 
-export default function HolidayList({ holidays }: HolidayListProps) {
+export default function HolidayList({ holidays, isLoading }: HolidayListProps) {
+  if (isLoading) {
+    return (
+      <div className="flex flex-col gap-4">
+        {[...Array(4)].map((_, index) => (
+          <div key={index} className="flex flex-col xxs:flex-row gap-2 xxs:px-2 animate-pulse">
+            <div className="bg-neutral-100 w-full xxs:w-1/6 p-5 xxs:rounded-lg">
+              <div className="h-6 w-16 bg-neutral-300 rounded-md mb-2"></div>
+              <div className="h-4 w-12 bg-neutral-300 rounded-md"></div>
+            </div>
+            <div className="flex w-full xxs:w-5/6 p-5 xxs:rounded-lg border border-neutral-200 shadow-sm">
+              <div className="flex flex-col justify-center w-1.5 self-stretch bg-neutral-200 rounded-full"></div>
+              <div className="flex flex-col px-4 flex-grow">
+                <span className="h-6 w-32 bg-neutral-200 rounded-md mb-2"></span>
+                <div className="flex flex-col items-start xxs:flex-row xxs:gap-4 gap-2 text-neutral-500 text-sm">
+                  <div className="h-4 w-16 bg-neutral-200 rounded-md"></div>
+                  <div className="h-4 w-16 bg-neutral-200 rounded-md"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    );
+  }
+
   if (holidays.length === 0) {
-    return <p className="text-center text-gray-500">Tatil bulunamadı.</p>;
+    return <p className="text-center text-gray-500">No holidays found.</p>;
   }
 
   return (
