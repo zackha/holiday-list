@@ -34,14 +34,18 @@ export default function FilterPanel({ filters, filterOptions, availableStates, o
   };
 
   return (
-    <div className="flex flex-wrap gap-3 px-2">
-      <ListFilter />
-      <CountryFilter filters={filters} filterOptions={filterOptions} handleChange={handleChange} />
-      {/*Todo //<StateFilter filters={filters} availableStates={availableStates} handleChange={handleChange} />*/}
-      <TypeFilter filters={filters} filterOptions={filterOptions} handleChange={handleChange} />
-      <YearFilter filters={filters} handleChange={handleChange} />
-      <MonthFilter filters={filters} handleChange={handleChange} />
-      <DownloadButtons onDownloadPDF={onDownloadPDF} onDownloadExcel={onDownloadExcel} />
+    <div className="flex px-2 justify-between">
+      <div className="flex flex-wrap gap-3 mr-2">
+        <ListFilter />
+        <CountryFilter filters={filters} filterOptions={filterOptions} handleChange={handleChange} />
+        {/*Todo //<StateFilter filters={filters} availableStates={availableStates} handleChange={handleChange} />*/}
+        <TypeFilter filters={filters} filterOptions={filterOptions} handleChange={handleChange} />
+        <YearFilter filters={filters} handleChange={handleChange} />
+        <MonthFilter filters={filters} handleChange={handleChange} />
+      </div>
+      <div>
+        <DownloadButtons onDownloadPDF={onDownloadPDF} onDownloadExcel={onDownloadExcel} />
+      </div>
     </div>
   );
 }

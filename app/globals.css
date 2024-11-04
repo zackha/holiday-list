@@ -5,24 +5,39 @@
 @layer base {
   @font-face {
     font-family: 'SuisseIntl';
-    src: url('/fonts/SuisseIntl-Regular.woff2') format('woff2');
+    src: url('fonts/SuisseIntl-Regular.woff2') format('woff2');
     font-weight: 400;
     font-style: normal;
   }
 
   @font-face {
     font-family: 'SuisseIntl';
-    src: url('/fonts/SuisseIntl-Medium.woff2') format('woff2');
+    src: url('fonts/SuisseIntl-Light.woff2') format('woff2');
+    font-weight: 300;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: 'SuisseIntl';
+    src: url('fonts/SuisseIntl-Medium.woff2') format('woff2');
     font-weight: 500;
     font-style: normal;
   }
 
   @font-face {
     font-family: 'SuisseIntl';
-    src: url('/fonts/SuisseIntl-SemiBold.woff2') format('woff2');
+    src: url('fonts/SuisseIntl-SemiBold.woff2') format('woff2');
     font-weight: 600;
     font-style: normal;
   }
+
+  @font-face {
+    font-family: 'SuisseIntl';
+    src: url('fonts/SuisseIntl-Bold.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+  }
+
   :root {
     --background: 0 0% 100%;
     --foreground: 0 0% 3.9%;
@@ -50,6 +65,7 @@
     --chart-5: 27 87% 67%;
     --radius: 0.5rem;
   }
+
   .dark {
     --background: 0 0% 3.9%;
     --foreground: 0 0% 98%;
@@ -76,13 +92,13 @@
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
   }
-}
 
-@layer base {
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground;
+    font-family: 'SuisseIntl', sans-serif;
   }
 }

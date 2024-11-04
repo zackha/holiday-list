@@ -44,8 +44,8 @@ export function EmptyList(props: SVGProps<SVGSVGElement>) {
         fill="white"
       />
       <defs>
-        <filter id="filter0_d_1_301" x="0" y="7" width="157" height="47" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-          <feFlood flood-opacity="0" result="BackgroundImageFix" />
+        <filter id="filter0_d_1_301" x="0" y="7" width="157" height="47" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
+          <feFlood floodOpacity="0" result="BackgroundImageFix" />
           <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
           <feOffset dy="3" />
           <feGaussianBlur stdDeviation="3" />
@@ -53,8 +53,8 @@ export function EmptyList(props: SVGProps<SVGSVGElement>) {
           <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_1_301" />
           <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_1_301" result="shape" />
         </filter>
-        <filter id="filter1_d_1_301" x="43" y="50" width="157" height="47" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-          <feFlood flood-opacity="0" result="BackgroundImageFix" />
+        <filter id="filter1_d_1_301" x="43" y="50" width="157" height="47" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
+          <feFlood floodOpacity="0" result="BackgroundImageFix" />
           <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
           <feOffset dy="3" />
           <feGaussianBlur stdDeviation="3" />
@@ -62,8 +62,8 @@ export function EmptyList(props: SVGProps<SVGSVGElement>) {
           <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_1_301" />
           <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_1_301" result="shape" />
         </filter>
-        <filter id="filter2_d_1_301" x="0" y="93" width="157" height="47" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-          <feFlood flood-opacity="0" result="BackgroundImageFix" />
+        <filter id="filter2_d_1_301" x="0" y="93" width="157" height="47" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
+          <feFlood floodOpacity="0" result="BackgroundImageFix" />
           <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
           <feOffset dy="3" />
           <feGaussianBlur stdDeviation="3" />
@@ -72,8 +72,8 @@ export function EmptyList(props: SVGProps<SVGSVGElement>) {
           <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_1_301" result="shape" />
         </filter>
         <linearGradient id="paint0_linear_1_301" x1="102" y1="0" x2="102" y2="140" gradientUnits="userSpaceOnUse">
-          <stop stop-color="#E3ECFA" />
-          <stop offset="1" stop-color="#DAE7FF" />
+          <stop stopColor="#E3ECFA" />
+          <stop offset="1" stopColor="#DAE7FF" />
         </linearGradient>
       </defs>
     </svg>
