@@ -11,10 +11,9 @@ interface DownloadButtonsProps {
 
 export default function DownloadButtons({ onDownloadPDF, onDownloadExcel }: DownloadButtonsProps) {
   return (
-    <Menu as="div" className="relative inline-block text-left">
-      <MenuButton className="inline-flex justify-center group gap-x-2.5 rounded-lg bg-white px-3.5 h-9 items-center text-neutral-700 shadow-sm ring-1 ring-inset ring-neutral-200 hover:bg-indigo-50 hover:text-black whitespace-nowrap transition-all">
+    <Menu as="div" className="relative">
+      <MenuButton className="inline-flex justify-center group rounded-lg bg-white px-2.5 h-9 items-center text-neutral-700 shadow-sm ring-1 ring-inset ring-neutral-200 hover:bg-indigo-50 hover:text-black whitespace-nowrap transition-all">
         <Download size={16} className="group-hover:text-indigo-600 transition-all" />
-        <span className="mt-0.5">Download</span>
       </MenuButton>
       <Transition
         as={React.Fragment}
