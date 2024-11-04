@@ -45,11 +45,11 @@ export default function HolidayList({ holidays, isLoading }: HolidayListProps) {
             leaveFrom="opacity-100 translate-y-0"
             leaveTo="opacity-0 -translate-y-1">
             <div className="flex flex-col xxs:flex-row gap-2 xxs:px-2">
-              <div className="bg-neutral-100 w-full xxs:w-1/6 p-5 xxs:rounded-lg">
+              <div className="bg-neutral-100 w-full xxs:w-2/6 sm:w-1/6 p-5 xxs:rounded-lg">
                 <div className="h-6 w-16 bg-neutral-300 rounded-md mb-2"></div>
                 <div className="h-4 w-12 bg-neutral-300 rounded-md"></div>
               </div>
-              <div className="flex w-full xxs:w-5/6 p-5 xxs:rounded-lg border border-neutral-200 shadow-sm">
+              <div className="flex w-full xxs:w-4/6 sm:w-5/6 p-5 xxs:rounded-lg border border-neutral-200 shadow-sm">
                 <div className="flex flex-col justify-center w-1.5 self-stretch bg-neutral-200 rounded-full"></div>
                 <div className="flex flex-col px-4 flex-grow">
                   <span className="h-6 w-32 bg-neutral-200 rounded-md mb-2"></span>
@@ -85,13 +85,13 @@ export default function HolidayList({ holidays, isLoading }: HolidayListProps) {
 
         return (
           <div key={id} className="flex flex-col xxs:flex-row gap-2 xxs:px-2">
-            <div className="bg-neutral-100 w-full xxs:w-1/6 p-5 xxs:rounded-lg">
+            <div className="bg-neutral-100 w-full xxs:w-2/6 sm:w-1/6 p-5 xxs:rounded-lg">
               <div className="text-lg">
                 {month} {dayOfMonth}
               </div>
               <div className="text-sm text-neutral-400">{weekDay}</div>
             </div>
-            <div className="flex w-full xxs:w-5/6 p-5 xxs:rounded-lg border border-neutral-200 shadow-sm">
+            <div className="flex w-full xxs:w-4/6 sm:w-5/6 p-5 xxs:rounded-lg border border-neutral-200 shadow-sm">
               <div className="flex flex-col justify-center w-1.5 self-stretch rounded-full" style={{ backgroundColor: color || '#000' }}></div>
               <div className="flex flex-col px-4 flex-grow">
                 <span className="text-lg text-neutral-800">{name}</span>
