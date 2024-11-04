@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import FilterPanel from './components/FilterPanel';
 import HolidayList from './components/HolidayList';
@@ -9,7 +9,7 @@ import * as XLSX from 'xlsx';
 import jsPDF from 'jspdf';
 import GithubButton from './components/GithubButton';
 
-export default function Home() {
+function HomeContent() {
   interface Holiday {
     id: number;
     name: string;
@@ -159,5 +159,13 @@ export default function Home() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function Home() {
+  return (
+    <Suspense>
+      <HomeContent />
+    </Suspense>
   );
 }
